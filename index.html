@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Progress Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; max-width: 500px; }
+    input, button { margin-top: 10px; padding: 8px; width: 100%; }
+    .summary { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    .score { font-size: 1.2em; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h2>📊 Daily Progress Tracker</h2>
+
+<label for="completedToday">Completed Today:</label>
+<input type="number" id="completedToday" placeholder="e.g. 2" />
+
+<button onclick="submitProgress()">Submit Progress</button>
+
+<div class="summary" id="summary">
+  <p><strong>Total Completed:</strong> <span id="total">0</span></p>
+  <p><strong>Days Passed:</strong> <span id="days">0</span></p>
+  <p><strong>Required Speed:</strong> <span id="requiredSpeed">0</span> per day</p>
+  <p><strong>Current Speed:</strong> <span id="currentSpeed">0</span> per day</p>
+  <p class="score"><strong>Signal Score:</strong> <span id="signal">10</span>/10</p>
+</div>
+
+<script>
+  const target = 30; // Set your monthly goal here
+  const startDate = new Date('2025-06-01'); // Set to the first of the current month
+
+  function submitProgress() {
+    const input = document.getElementById("completedToday");
+    const today = new Date().toISOString().slice(0, 10);
+    const value = parseInt(input.value, 10);
+    if (!value) return;
+
+    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
+    data[today] = (data[today] || 0) + value;
+    localStorage.setItem("progressData", JSON.stringify(data));
+    input.value = '';
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const data = JSON.parse(localStorage.getItem("progressData") || "{}");
+    const total = Object.values(data).reduce((a, b) => a + b, 0);
+    const today = new Date();
+    const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    const requiredSpeed = target / 30;
+    const currentSpeed = total / daysPassed;
+    const speedGap = Math.max(0, requiredSpeed - currentSpeed);
+    const gapPercent = (speedGap / requiredSpeed) * 100;
+    const score = Math.max(0, 10 - Math.floor(gapPercent / 10));
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("days").innerText = daysPassed;
+    document.getElementById("requiredSpeed").innerText = requiredSpeed.toFixed(2);
+    document.getElementById("currentSpeed").innerText = currentSpeed.toFixed(2);
+    document.getElementById("signal").innerText = score;
+  }
+
+  updateSummary();
+</script>
+
+</body>
+</html>
