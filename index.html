@@ -2,67 +2,277 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Progress Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Daily Progress Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; max-width: 500px; }
-    input, button { margin-top: 10px; padding: 8px; width: 100%; }
-    .summary { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
-    .score { font-size: 1.2em; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+      max-width: 480px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    button {
+      cursor: pointer;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: 600;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .summary {
+      margin-top: 20px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .score {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #progressBar {
+      height: 24px;
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    #progressFill {
+      height: 100%;
+      background-color: #28a745;
+      width: 0%;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      line-height: 24px;
+      transition: width 0.5s ease;
+    }
+    #message {
+      margin-top: 15px;
+      font-style: italic;
+      font-weight: 600;
+      color: #333;
+      min-height: 30px;
+    }
+    #history {
+      margin-top: 25px;
+    }
+    #history table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #history th, #history td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-<h2>📊 Daily Progress Tracker</h2>
+<h2>🚀 Smart Daily Progress Tracker</h2>
 
 <label for="completedToday">Completed Today:</label>
-<input type="number" id="completedToday" placeholder="e.g. 2" />
+<input type="number" id="completedToday" placeholder="e.g. 2" min="1" />
 
 <button onclick="submitProgress()">Submit Progress</button>
+<button onclick="clearData()" style="background-color: #dc3545; margin-top: 8px;">Clear All Data</button>
+<button onclick="exportCSV()" style="background-color: #17a2b8; margin-top: 8px;">Export Progress CSV</button>
 
 <div class="summary" id="summary">
   <p><strong>Total Completed:</strong> <span id="total">0</span></p>
   <p><strong>Days Passed:</strong> <span id="days">0</span></p>
-  <p><strong>Required Speed:</strong> <span id="requiredSpeed">0</span> per day</p>
+  <p><strong>Days Remaining:</strong> <span id="daysRemaining">0</span></p>
+  <p><strong>Target:</strong> <span id="target">0</span></p>
+  <p><strong>Required Speed (Overall):</strong> <span id="requiredSpeed">0</span> per day</p>
+  <p><strong>Required Speed (Remaining):</strong> <span id="requiredSpeedRemaining">0</span> per day</p>
   <p><strong>Current Speed:</strong> <span id="currentSpeed">0</span> per day</p>
+
+  <div id="progressBar" aria-label="Progress bar">
+    <div id="progressFill">0%</div>
+  </div>
+
   <p class="score"><strong>Signal Score:</strong> <span id="signal">10</span>/10</p>
+  <div id="message"></div>
+</div>
+
+<div id="history">
+  <h3>📅 Progress History</h3>
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Completed</th></tr>
+    </thead>
+    <tbody id="historyBody"></tbody>
+  </table>
 </div>
 
 <script>
-  const target = 30; // Set your monthly goal here
-  const startDate = new Date('2025-06-01'); // Set to the first of the current month
+  const target = 30; // Your monthly goal
+  const now = new Date();
+  let startDate = new Date(now.getFullYear(), now.getMonth(), 1); // 1st day of this month
+  let endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Last day of this month
+  const daysThisMonth = endDate.getDate();
+
+  // Reset data automatically if stored data is from a previous month
+  function autoResetIfNewMonth() {
+    const data = JSON.parse(localStorage.getItem("progressData") || "{}");
+    if (!data._month || data._month !== `${startDate.getFullYear()}-${startDate.getMonth() + 1}`) {
+      localStorage.removeItem("progressData");
+      localStorage.setItem("progressData", JSON.stringify({_month: `${startDate.getFullYear()}-${startDate.getMonth() + 1}`}));
+    }
+  }
 
   function submitProgress() {
     const input = document.getElementById("completedToday");
     const today = new Date().toISOString().slice(0, 10);
     const value = parseInt(input.value, 10);
-    if (!value) return;
+    if (!value || value <= 0) {
+      alert("Please enter a positive number");
+      input.focus();
+      return;
+    }
 
     let data = JSON.parse(localStorage.getItem("progressData") || "{}");
     data[today] = (data[today] || 0) + value;
+    // Keep month info
+    if (!data._month) data._month = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
     localStorage.setItem("progressData", JSON.stringify(data));
     input.value = '';
     updateSummary();
   }
 
+  function clearData() {
+    if (confirm("Are you sure you want to clear all progress data?")) {
+      localStorage.removeItem("progressData");
+      updateSummary();
+    }
+  }
+
   function updateSummary() {
-    const data = JSON.parse(localStorage.getItem("progressData") || "{}");
-    const total = Object.values(data).reduce((a, b) => a + b, 0);
+    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
+    if (!data._month) data._month = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
+
+    // Filter out _month key and only sum dates within current month
+    const entries = Object.entries(data).filter(([k]) => k !== '_month' && new Date(k) >= startDate && new Date(k) <= endDate);
+    const total = entries.reduce((acc, [, v]) => acc + v, 0);
+
     const today = new Date();
-    const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
-    const requiredSpeed = target / 30;
+    const daysPassed = Math.min(Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1, daysThisMonth);
+    const daysRemaining = daysThisMonth - daysPassed;
+
+    const requiredSpeedOverall = target / daysThisMonth;
     const currentSpeed = total / daysPassed;
-    const speedGap = Math.max(0, requiredSpeed - currentSpeed);
-    const gapPercent = (speedGap / requiredSpeed) * 100;
+
+    // Required speed to finish target in remaining days, handle division by zero if last day
+    const remainingTarget = Math.max(target - total, 0);
+    const requiredSpeedRemaining = daysRemaining > 0 ? (remainingTarget / daysRemaining) : remainingTarget;
+
+    // Calculate signal score - closer to or above required speed is better
+    const speedGap = Math.max(0, requiredSpeedOverall - currentSpeed);
+    const gapPercent = (speedGap / requiredSpeedOverall) * 100;
     const score = Math.max(0, 10 - Math.floor(gapPercent / 10));
 
     document.getElementById("total").innerText = total;
     document.getElementById("days").innerText = daysPassed;
-    document.getElementById("requiredSpeed").innerText = requiredSpeed.toFixed(2);
+    document.getElementById("daysRemaining").innerText = daysRemaining;
+    document.getElementById("target").innerText = target;
+    document.getElementById("requiredSpeed").innerText = requiredSpeedOverall.toFixed(2);
+    document.getElementById("requiredSpeedRemaining").innerText = requiredSpeedRemaining.toFixed(2);
     document.getElementById("currentSpeed").innerText = currentSpeed.toFixed(2);
-    document.getElementById("signal").innerText = score;
+
+    const signalEl = document.getElementById("signal");
+    signalEl.innerText = score;
+    if(score >= 8) signalEl.style.color = "green";
+    else if(score >= 5) signalEl.style.color = "orange";
+    else signalEl.style.color = "red";
+
+    // Progress bar update
+    const progressPercent = Math.min((total / target) * 100, 100);
+    const progressFill = document.getElementById("progressFill");
+    progressFill.style.width = progressPercent + "%";
+    progressFill.innerText = progressPercent.toFixed(1) + "%";
+
+    // Show today's saved value in input (auto detect)
+    const todayKey = new Date().toISOString().slice(0, 10);
+    document.getElementById("completedToday").value = data[todayKey] || "";
+
+    // Motivational messages
+    const messageEl = document.getElementById("message");
+    if(score >= 8) {
+      messageEl.innerText = "Awesome! You're on track or ahead! Keep it up! 💪";
+      messageEl.style.color = "green";
+    } else if(score >= 5) {
+      messageEl.innerText = "You're doing okay, but try to push a little more! 📈";
+      messageEl.style.color = "orange";
+    } else {
+      messageEl.innerText = "Let's boost your efforts! You can catch up! 🔥";
+      messageEl.style.color = "red";
+    }
+
+    // Populate history table sorted descending by date
+    const historyBody = document.getElementById("historyBody");
+    const sortedDates = entries.map(([d]) => d).sort((a,b) => new Date(b) - new Date(a));
+    historyBody.innerHTML = "";
+    for(let d of sortedDates) {
+      const tr = document.createElement("tr");
+      const tdDate = document.createElement("td");
+      tdDate.innerText = d;
+      const tdVal = document.createElement("td");
+      tdVal.innerText = data[d];
+      tr.appendChild(tdDate);
+      tr.appendChild(tdVal);
+      historyBody.appendChild(tr);
+    }
   }
 
+  function exportCSV() {
+    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
+    const entries = Object.entries(data).filter(([k]) => k !== '_month');
+    if (entries.length === 0) {
+      alert("No progress data to export.");
+      return;
+    }
+
+    let csvContent = "Date,Completed\n";
+    entries.sort((a,b) => new Date(a[0]) - new Date(b[0])).forEach(([date, val]) => {
+      csvContent += `${date},${val}\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `progress_${startDate.getFullYear()}_${startDate.getMonth() + 1}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Initialize app
+  autoResetIfNewMonth();
   updateSummary();
 </script>
 
