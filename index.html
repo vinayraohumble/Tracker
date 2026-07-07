@@ -1,280 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Smart Daily Progress Tracker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px auto;
-      max-width: 480px;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    input, button {
-      margin-top: 10px;
-      padding: 10px;
-      width: 100%;
-      box-sizing: border-box;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s ease;
-    }
-    input:focus {
-      outline: none;
-      border-color: #007bff;
-    }
-    button {
-      cursor: pointer;
-      background-color: #007bff;
-      border: none;
-      color: white;
-      font-weight: 600;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .summary {
-      margin-top: 20px;
-      background: white;
-      padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .score {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    #progressBar {
-      height: 24px;
-      width: 100%;
-      background-color: #ddd;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-    #progressFill {
-      height: 100%;
-      background-color: #28a745;
-      width: 0%;
-      text-align: center;
-      color: white;
-      font-weight: 600;
-      line-height: 24px;
-      transition: width 0.5s ease;
-    }
-    #message {
-      margin-top: 15px;
-      font-style: italic;
-      font-weight: 600;
-      color: #333;
-      min-height: 30px;
-    }
-    #history {
-      margin-top: 25px;
-    }
-    #history table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    #history th, #history td {
-      border: 1px solid #ccc;
-      padding: 6px;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suren Speech Therapist</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
+    <!-- TOP HEADER -->
+    <div class="top-bar">
+        <div class="container">
+            <span>📞 7617489130</span>
+            <span>📧 skg01042001@gmail.com</span>
+        </div>
+    </div>
 
-<h2>🚀 Smart Daily Progress Tracker</h2>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <h1>🗣️ Suren Speech Therapist</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#register" class="nav-register">Register</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-<label for="completedToday">Completed Today:</label>
-<input type="number" id="completedToday" placeholder="e.g. 2" min="1" />
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="badge">⭐ Trusted Speech Therapist</span>
+                    <h1>Helping Every Child <br><span class="highlight">Speak with Confidence</span></h1>
+                    <p>Professional Speech Therapy & Special Education Services for children with speech delays, autism, and learning difficulties.</p>
+                    <div class="hero-buttons">
+                        <a href="#register" class="btn-primary">📝 Register Now</a>
+                        <a href="tel:7617489130" class="btn-call">📞 Call Now</a>
+                        <a href="https://wa.me/917617489130" class="btn-whatsapp">💬 WhatsApp</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="doctor.jpg" alt="Suren Speech Therapist">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<button onclick="submitProgress()">Submit Progress</button>
-<button onclick="clearData()" style="background-color: #dc3545; margin-top: 8px;">Clear All Data</button>
-<button onclick="exportCSV()" style="background-color: #17a2b8; margin-top: 8px;">Export Progress CSV</button>
+    <!-- WHY CHOOSE US -->
+    <section class="why-choose">
+        <div class="container">
+            <h2>Why Choose Me?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <span class="icon">🎯</span>
+                    <h3>Personalized Therapy</h3>
+                    <p>Every child gets a custom treatment plan</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">👨‍⚕️</span>
+                    <h3>Experienced Therapist</h3>
+                    <p>Years of experience with special needs children</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">🏠</span>
+                    <h3>Flexible Locations</h3>
+                    <p>Home, clinic, school, or online sessions</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">💚</span>
+                    <h3>Affordable & Trusted</h3>
+                    <p>Quality therapy at reasonable rates</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="summary" id="summary">
-  <p><strong>Total Completed:</strong> <span id="total">0</span></p>
-  <p><strong>Days Passed:</strong> <span id="days">0</span></p>
-  <p><strong>Days Remaining:</strong> <span id="daysRemaining">0</span></p>
-  <p><strong>Target:</strong> <span id="target">0</span></p>
-  <p><strong>Required Speed (Overall):</strong> <span id="requiredSpeed">0</span> per day</p>
-  <p><strong>Required Speed (Remaining):</strong> <span id="requiredSpeedRemaining">0</span> per day</p>
-  <p><strong>Current Speed:</strong> <span id="currentSpeed">0</span> per day</p>
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>My Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="icon">🗣️</span>
+                    <h3>Speech Delay</h3>
+                    <p>Helping children develop clear speech</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🧩</span>
+                    <h3>Autism Support</h3>
+                    <p>Specialized therapy for autistic children</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🎓</span>
+                    <h3>School Visit</h3>
+                    <p>Therapy sessions at your child's school</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🏠</span>
+                    <h3>Home Visit</h3>
+                    <p>Comfortable therapy in your home</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">💻</span>
+                    <h3>Online Therapy</h3>
+                    <p>Convenient sessions from anywhere</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">👨‍👦</span>
+                    <h3>Parent Counseling</h3>
+                    <p>Guidance and support for parents</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div id="progressBar" aria-label="Progress bar">
-    <div id="progressFill">0%</div>
-  </div>
+    <!-- REGISTRATION FORM -->
+    <section id="register" class="register-section">
+        <div class="container">
+            <div class="register-card">
+                <h2>📝 Register Now</h2>
+                <p class="subtitle">Fill this form and I'll contact you within 24 hours</p>
+                
+                <form id="registrationForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="name" placeholder="Enter your full name" required>
+                    </div>
 
-  <p class="score"><strong>Signal Score:</strong> <span id="signal">10</span>/10</p>
-  <div id="message"></div>
-</div>
+                    <div class="form-group">
+                        <label>City / Village *</label>
+                        <input type="text" name="city" placeholder="Enter your city or village" required>
+                    </div>
 
-<div id="history">
-  <h3>📅 Progress History</h3>
-  <table>
-    <thead>
-      <tr><th>Date</th><th>Completed</th></tr>
-    </thead>
-    <tbody id="historyBody"></tbody>
-  </table>
-</div>
+                    <div class="form-group">
+                        <label>Mobile Number *</label>
+                        <input type="tel" name="phone" placeholder="Enter your phone number" required>
+                    </div>
 
-<script>
-  const target = 30; // Your monthly goal
-  const now = new Date();
-  let startDate = new Date(now.getFullYear(), now.getMonth(), 1); // 1st day of this month
-  let endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Last day of this month
-  const daysThisMonth = endDate.getDate();
+                    <div class="form-group">
+                        <label>How do you want therapy? *</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="service" value="Home Visit" required>
+                                🏠 Home Visit
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="service" value="Clinic Visit">
+                                🏢 Clinic Visit
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="service" value="School Visit">
+                                🏫 School Visit
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="service" value="Online Consultation">
+                                💻 Online Consultation
+                            </label>
+                        </div>
+                    </div>
 
-  // Reset data automatically if stored data is from a previous month
-  function autoResetIfNewMonth() {
-    const data = JSON.parse(localStorage.getItem("progressData") || "{}");
-    if (!data._month || data._month !== `${startDate.getFullYear()}-${startDate.getMonth() + 1}`) {
-      localStorage.removeItem("progressData");
-      localStorage.setItem("progressData", JSON.stringify({_month: `${startDate.getFullYear()}-${startDate.getMonth() + 1}`}));
-    }
-  }
+                    <button type="submit" class="btn-submit">✅ Submit Registration</button>
+                </form>
 
-  function submitProgress() {
-    const input = document.getElementById("completedToday");
-    const today = new Date().toISOString().slice(0, 10);
-    const value = parseInt(input.value, 10);
-    if (!value || value <= 0) {
-      alert("Please enter a positive number");
-      input.focus();
-      return;
-    }
+                <div id="successMessage" style="display:none;">
+                    <h3>✅ Thank You!</h3>
+                    <p>Your registration has been received. I will contact you shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
-    data[today] = (data[today] || 0) + value;
-    // Keep month info
-    if (!data._month) data._month = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
-    localStorage.setItem("progressData", JSON.stringify(data));
-    input.value = '';
-    updateSummary();
-  }
+    <!-- ABOUT ME -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="doctor.jpg" alt="Suren Speech Therapist">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <h3>Suren Speech Language Therapist</h3>
+                    <p>I am a dedicated Speech Language Therapist and Special Educator committed to helping children communicate with confidence.</p>
+                    <ul>
+                        <li>✅ Over 5 years of experience</li>
+                        <li>✅ Trained in Autism and Developmental Disorders</li>
+                        <li>✅ Available in Marathi, Hindi, and English</li>
+                        <li>✅ Home, Clinic, School, and Online sessions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function clearData() {
-    if (confirm("Are you sure you want to clear all progress data?")) {
-      localStorage.removeItem("progressData");
-      updateSummary();
-    }
-  }
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="icon">📞</span>
+                    <h3>Phone</h3>
+                    <p><a href="tel:7617489130">7617489130</a></p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">💬</span>
+                    <h3>WhatsApp</h3>
+                    <p><a href="https://wa.me/917617489130">Chat Now</a></p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">📧</span>
+                    <h3>Email</h3>
+                    <p><a href="mailto:skg01042001@gmail.com">skg01042001@gmail.com</a></p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">📍</span>
+                    <h3>Location</h3>
+                    <p>Maharashtra, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function updateSummary() {
-    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
-    if (!data._month) data._month = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Suren Speech Therapist. All rights reserved.</p>
+            <p>Helping children speak with confidence 🗣️</p>
+        </div>
+    </footer>
 
-    // Filter out _month key and only sum dates within current month
-    const entries = Object.entries(data).filter(([k]) => k !== '_month' && new Date(k) >= startDate && new Date(k) <= endDate);
-    const total = entries.reduce((acc, [, v]) => acc + v, 0);
-
-    const today = new Date();
-    const daysPassed = Math.min(Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1, daysThisMonth);
-    const daysRemaining = daysThisMonth - daysPassed;
-
-    const requiredSpeedOverall = target / daysThisMonth;
-    const currentSpeed = total / daysPassed;
-
-    // Required speed to finish target in remaining days, handle division by zero if last day
-    const remainingTarget = Math.max(target - total, 0);
-    const requiredSpeedRemaining = daysRemaining > 0 ? (remainingTarget / daysRemaining) : remainingTarget;
-
-    // Calculate signal score - closer to or above required speed is better
-    const speedGap = Math.max(0, requiredSpeedOverall - currentSpeed);
-    const gapPercent = (speedGap / requiredSpeedOverall) * 100;
-    const score = Math.max(0, 10 - Math.floor(gapPercent / 10));
-
-    document.getElementById("total").innerText = total;
-    document.getElementById("days").innerText = daysPassed;
-    document.getElementById("daysRemaining").innerText = daysRemaining;
-    document.getElementById("target").innerText = target;
-    document.getElementById("requiredSpeed").innerText = requiredSpeedOverall.toFixed(2);
-    document.getElementById("requiredSpeedRemaining").innerText = requiredSpeedRemaining.toFixed(2);
-    document.getElementById("currentSpeed").innerText = currentSpeed.toFixed(2);
-
-    const signalEl = document.getElementById("signal");
-    signalEl.innerText = score;
-    if(score >= 8) signalEl.style.color = "green";
-    else if(score >= 5) signalEl.style.color = "orange";
-    else signalEl.style.color = "red";
-
-    // Progress bar update
-    const progressPercent = Math.min((total / target) * 100, 100);
-    const progressFill = document.getElementById("progressFill");
-    progressFill.style.width = progressPercent + "%";
-    progressFill.innerText = progressPercent.toFixed(1) + "%";
-
-    // Show today's saved value in input (auto detect)
-    const todayKey = new Date().toISOString().slice(0, 10);
-    document.getElementById("completedToday").value = data[todayKey] || "";
-
-    // Motivational messages
-    const messageEl = document.getElementById("message");
-    if(score >= 8) {
-      messageEl.innerText = "Awesome! You're on track or ahead! Keep it up! 💪";
-      messageEl.style.color = "green";
-    } else if(score >= 5) {
-      messageEl.innerText = "You're doing okay, but try to push a little more! 📈";
-      messageEl.style.color = "orange";
-    } else {
-      messageEl.innerText = "Let's boost your efforts! You can catch up! 🔥";
-      messageEl.style.color = "red";
-    }
-
-    // Populate history table sorted descending by date
-    const historyBody = document.getElementById("historyBody");
-    const sortedDates = entries.map(([d]) => d).sort((a,b) => new Date(b) - new Date(a));
-    historyBody.innerHTML = "";
-    for(let d of sortedDates) {
-      const tr = document.createElement("tr");
-      const tdDate = document.createElement("td");
-      tdDate.innerText = d;
-      const tdVal = document.createElement("td");
-      tdVal.innerText = data[d];
-      tr.appendChild(tdDate);
-      tr.appendChild(tdVal);
-      historyBody.appendChild(tr);
-    }
-  }
-
-  function exportCSV() {
-    let data = JSON.parse(localStorage.getItem("progressData") || "{}");
-    const entries = Object.entries(data).filter(([k]) => k !== '_month');
-    if (entries.length === 0) {
-      alert("No progress data to export.");
-      return;
-    }
-
-    let csvContent = "Date,Completed\n";
-    entries.sort((a,b) => new Date(a[0]) - new Date(b[0])).forEach(([date, val]) => {
-      csvContent += `${date},${val}\n`;
-    });
-
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `progress_${startDate.getFullYear()}_${startDate.getMonth() + 1}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  // Initialize app
-  autoResetIfNewMonth();
-  updateSummary();
-</script>
-
+    <script src="app.js"></script>
 </body>
 </html>
