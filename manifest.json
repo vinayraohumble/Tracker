@@ -1,0 +1,26 @@
+{
+    "name": "Suren Speech Therapist",
+    "short_name": "Suren Speech",
+    "description": "Professional Speech Therapy for Children",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#00897b",
+    "orientation": "portrait",
+    "scope": "/",
+    "categories": ["health", "education", "medical"],
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
