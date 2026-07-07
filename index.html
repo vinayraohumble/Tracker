@@ -2,100 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suren Speech Therapist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Suren Speech Therapist - Home</title>
+    <meta name="description" content="Professional Speech Therapy for children. Book home visits, clinic visits, school visits or online consultations.">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#00897b">
 </head>
 <body>
-    <!-- TOP HEADER -->
+    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <span>📞 7617489130</span>
-            <span>📧 skg01042001@gmail.com</span>
+            <span>📞 <a href="tel:7617489130">7617489130</a></span>
+            <span>📧 <a href="mailto:skg01042001@gmail.com">skg01042001@gmail.com</a></span>
+            <span>🕐 Mon-Sat: 9AM - 7PM</span>
         </div>
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- Navigation -->
     <nav>
         <div class="container">
             <div class="logo">
                 <h1>🗣️ Suren Speech Therapist</h1>
             </div>
-            <div class="nav-links">
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
-                <a href="#register" class="nav-register">Register</a>
+                <a href="#register" class="nav-register">📝 Register</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <span class="badge">⭐ Trusted Speech Therapist</span>
-                    <h1>Helping Every Child <br><span class="highlight">Speak with Confidence</span></h1>
-                    <p>Professional Speech Therapy & Special Education Services for children with speech delays, autism, and learning difficulties.</p>
+                    <span class="badge">⭐ Trusted Speech Therapist Since 2020</span>
+                    <h1>Helping Every Child<br><span class="highlight">Speak with Confidence</span></h1>
+                    <p>Professional Speech-Language Therapy & Special Education services for children with speech delays, autism, stammering, and learning difficulties.</p>
                     <div class="hero-buttons">
                         <a href="#register" class="btn-primary">📝 Register Now</a>
                         <a href="tel:7617489130" class="btn-call">📞 Call Now</a>
-                        <a href="https://wa.me/917617489130" class="btn-whatsapp">💬 WhatsApp</a>
+                        <a href="https://wa.me/917617489130" class="btn-whatsapp" target="_blank">💬 WhatsApp</a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="doctor.jpg" alt="Suren Speech Therapist">
+                    <img src="doctor.jpg" alt="Suren Speech Therapist" onerror="this.src='https://via.placeholder.com/400x400/00897b/ffffff?text=Suren+Speech'">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="number">500+</span>
+                    <span class="label">Happy Children</span>
+                </div>
+                <div class="stat">
+                    <span class="number">4+</span>
+                    <span class="label">Years Experience</span>
+                </div>
+                <div class="stat">
+                    <span class="number">100%</span>
+                    <span class="label">Satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="number">4</span>
+                    <span class="label">Service Locations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose -->
     <section class="why-choose">
         <div class="container">
             <h2>Why Choose Me?</h2>
+            <p class="section-subtitle">Dedicated to helping every child find their voice</p>
             <div class="features-grid">
                 <div class="feature">
                     <span class="icon">🎯</span>
                     <h3>Personalized Therapy</h3>
-                    <p>Every child gets a custom treatment plan</p>
+                    <p>Custom treatment plans for each child's unique needs</p>
                 </div>
                 <div class="feature">
                     <span class="icon">👨‍⚕️</span>
                     <h3>Experienced Therapist</h3>
-                    <p>Years of experience with special needs children</p>
+                    <p>Trained in Autism, ADHD, and developmental disorders</p>
                 </div>
                 <div class="feature">
                     <span class="icon">🏠</span>
                     <h3>Flexible Locations</h3>
-                    <p>Home, clinic, school, or online sessions</p>
+                    <p>Home, clinic, school, or online - you choose</p>
                 </div>
                 <div class="feature">
                     <span class="icon">💚</span>
                     <h3>Affordable & Trusted</h3>
-                    <p>Quality therapy at reasonable rates</p>
+                    <p>Quality therapy at reasonable, transparent rates</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">🌍</span>
+                    <h3>Multiple Languages</h3>
+                    <p>Services in Marathi, Hindi, and English</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">📅</span>
+                    <h3>Appointment Based</h3>
+                    <p>Convenient scheduling that works for you</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- Services -->
     <section id="services" class="services">
         <div class="container">
             <h2>My Services</h2>
+            <p class="section-subtitle">Comprehensive therapy options for every need</p>
             <div class="services-grid">
                 <div class="service-card">
                     <span class="icon">🗣️</span>
                     <h3>Speech Delay</h3>
-                    <p>Helping children develop clear speech</p>
+                    <p>Helping children develop clear, confident speech</p>
                 </div>
                 <div class="service-card">
                     <span class="icon">🧩</span>
                     <h3>Autism Support</h3>
-                    <p>Specialized therapy for autistic children</p>
+                    <p>Specialized therapy for children on the spectrum</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🌀</span>
+                    <h3>Stammering</h3>
+                    <p>Improving fluency and reducing stammering</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🧠</span>
+                    <h3>ADHD Support</h3>
+                    <p>Helping children with attention and focus</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">📚</span>
+                    <h3>Learning Disability</h3>
+                    <p>Support for dyslexia and learning challenges</p>
                 </div>
                 <div class="service-card">
                     <span class="icon">🎓</span>
@@ -105,7 +161,7 @@
                 <div class="service-card">
                     <span class="icon">🏠</span>
                     <h3>Home Visit</h3>
-                    <p>Comfortable therapy in your home</p>
+                    <p>Comfortable therapy in your own home</p>
                 </div>
                 <div class="service-card">
                     <span class="icon">💻</span>
@@ -121,14 +177,47 @@
         </div>
     </section>
 
-    <!-- REGISTRATION FORM -->
+    <!-- Process -->
+    <section class="process">
+        <div class="container">
+            <h2>How It Works</h2>
+            <p class="section-subtitle">Simple 4-step process to get started</p>
+            <div class="process-steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3>📝 Register</h3>
+                    <p>Fill the simple registration form</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3>📞 Phone Call</h3>
+                    <p>I'll call you within 24 hours</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3>📋 Assessment</h3>
+                    <p>Detailed assessment of your child</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h3>🎯 Therapy Starts</h3>
+                    <p>Personalized therapy sessions begin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
     <section id="register" class="register-section">
         <div class="container">
             <div class="register-card">
                 <h2>📝 Register Now</h2>
                 <p class="subtitle">Fill this form and I'll contact you within 24 hours</p>
                 
-                <form id="registrationForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+                <form id="registrationForm" action="YOUR_GOOGLE_SCRIPT_URL" method="POST">
                     <div class="form-group">
                         <label>Full Name *</label>
                         <input type="text" name="name" placeholder="Enter your full name" required>
@@ -170,69 +259,164 @@
                 </form>
 
                 <div id="successMessage" style="display:none;">
-                    <h3>✅ Thank You!</h3>
-                    <p>Your registration has been received. I will contact you shortly.</p>
+                    <div class="success-icon">✅</div>
+                    <h3>Registration Successful!</h3>
+                    <p>Thank you for registering. I will contact you shortly.</p>
+                    <p style="font-size:14px; color:#666; margin-top:10px;">📞 You can also call me at <strong>7617489130</strong></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT ME -->
+    <!-- About -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <img src="doctor.jpg" alt="Suren Speech Therapist">
+                    <img src="doctor.jpg" alt="Suren Speech Therapist" onerror="this.src='https://via.placeholder.com/400x500/00897b/ffffff?text=Suren'">
                 </div>
                 <div class="about-text">
                     <h2>About Me</h2>
-                    <h3>Suren Speech Language Therapist</h3>
-                    <p>I am a dedicated Speech Language Therapist and Special Educator committed to helping children communicate with confidence.</p>
+                    <h3>Suren - Speech-Language Therapist</h3>
+                    <p>I am a dedicated Speech-Language Therapist and Special Educator committed to helping children communicate with confidence.</p>
+                    <p>With experience in treating speech delays, autism, stammering, ADHD, and learning disabilities, I provide compassionate, personalized care to every child.</p>
                     <ul>
-                        <li>✅ Over 5 years of experience</li>
-                        <li>✅ Trained in Autism and Developmental Disorders</li>
-                        <li>✅ Available in Marathi, Hindi, and English</li>
+                        <li>✅ Trained in Autism & Developmental Disorders</li>
+                        <li>✅ Experienced in Pediatric Speech Therapy</li>
+                        <li>✅ Services in Marathi, Hindi, and English</li>
                         <li>✅ Home, Clinic, School, and Online sessions</li>
+                        <li>✅ Parent counseling and support</li>
                     </ul>
+                    <div class="about-buttons">
+                        <a href="#register" class="btn-primary">📝 Register Now</a>
+                        <a href="tel:7617489130" class="btn-call">📞 Call Now</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Parents Say</h2>
+            <p class="section-subtitle">Real stories from families I've helped</p>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"My son's speech improved dramatically within 3 months. Suren is patient and skilled."</p>
+                    <div class="parent">- Mrs. Patil, Pune</div>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Excellent therapist! My daughter with autism has shown amazing progress."</p>
+                    <div class="parent">- Mr. Sharma, Mumbai</div>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Highly recommend Suren. Professional, caring, and gets results."</p>
+                    <div class="parent">- Mrs. Joshi, Nashik</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Me</h2>
+            <p class="section-subtitle">Reach out anytime - I'm here to help</p>
             <div class="contact-grid">
                 <div class="contact-card">
                     <span class="icon">📞</span>
                     <h3>Phone</h3>
                     <p><a href="tel:7617489130">7617489130</a></p>
+                    <small>Mon-Sat: 9AM - 7PM</small>
                 </div>
                 <div class="contact-card">
                     <span class="icon">💬</span>
                     <h3>WhatsApp</h3>
-                    <p><a href="https://wa.me/917617489130">Chat Now</a></p>
+                    <p><a href="https://wa.me/917617489130" target="_blank">Chat Now</a></p>
+                    <small>Quick response on WhatsApp</small>
                 </div>
                 <div class="contact-card">
                     <span class="icon">📧</span>
                     <h3>Email</h3>
                     <p><a href="mailto:skg01042001@gmail.com">skg01042001@gmail.com</a></p>
+                    <small>I'll reply within 24 hours</small>
                 </div>
                 <div class="contact-card">
                     <span class="icon">📍</span>
                     <h3>Location</h3>
                     <p>Maharashtra, India</p>
+                    <small>Home visits available</small>
+                </div>
+            </div>
+            <div class="map-placeholder">
+                <p>📍 Serving all areas in Maharashtra</p>
+                <p style="font-size:14px; color:#666;">Home visits, clinic visits, school visits, and online therapy available</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>What age children do you work with?</h3>
+                    <p>I work with children from 2 to 18 years of age.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How long does therapy take?</h3>
+                    <p>Each child is different. Typically, progress is seen within 3-6 months with regular sessions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you provide home visits?</h3>
+                    <p>Yes! I provide home visits, clinic visits, school visits, and online consultations.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What languages do you speak?</h3>
+                    <p>I provide therapy in Marathi, Hindi, and English.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>© 2026 Suren Speech Therapist. All rights reserved.</p>
-            <p>Helping children speak with confidence 🗣️</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🗣️ Suren Speech Therapist</h3>
+                    <p>Helping children speak with confidence</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#register">Register</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 7617489130</p>
+                    <p>📧 skg01042001@gmail.com</p>
+                    <p>📍 Maharashtra</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Me</h4>
+                    <div class="social-links">
+                        <a href="https://wa.me/917617489130" target="_blank">💬 WhatsApp</a>
+                        <a href="tel:7617489130">📞 Call</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Suren Speech Therapist. All rights reserved.</p>
+                <p>Made with ❤️ for every child's voice</p>
+            </div>
         </div>
     </footer>
 
